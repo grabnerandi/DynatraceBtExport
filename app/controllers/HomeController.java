@@ -1,10 +1,8 @@
 package controllers;
 
-import akka.util.ByteString;
 import com.dynatrace.diagnostics.core.realtime.export.BtExport;
-import play.mvc.*;
-
-import views.html.*;
+import play.mvc.Controller;
+import play.mvc.Result;
 
 import java.util.List;
 
@@ -30,7 +28,8 @@ public class HomeController extends Controller {
             List<BtExport.BusinessTransaction> businessTransactionList = bts.getBusinessTransactionsList();
             for (BtExport.BusinessTransaction bt : businessTransactionList) {
                 for (BtExport.BtOccurrence occ : bt.getOccurrencesList()) {
-                    String message = String.format("%s - %s took %.3f ms to log in", bt.getName(), occ.getDimensions(0), occ.getResponseTime());
+                    String message = String.format("%s - %s took %.3f ms to log in", bt.getName(),
+                            occ.getDimensions(0), occ.getResponseTime());
 
                     System.err.println(message);
                 }
